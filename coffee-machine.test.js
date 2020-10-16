@@ -138,15 +138,110 @@ describe("Coffee Machine Maker", () => {
     })
 
     describe("Testing the methods", () => {
-        test("Adding water using no argument", () => {
+        describe("AddWaterToMachine method" ,() => {
+            test("Adds 1 water when passed no argument", () => {
 
-            const testCoffeeMachine = new CoffeeMachine();
-            testCoffeeMachine;
+                const testCoffeeMachine = new CoffeeMachine();
+                testCoffeeMachine;
 
-            testCoffeeMachine.addWaterToMachine();
-            expect(testCoffeeMachine.waterLevel).toBe(1);
+                testCoffeeMachine.addWaterToMachine();
+                expect(testCoffeeMachine.waterLevel).toBe(1);
+            })
+
+            test("Adds 1 water when passed an argument of 1", () => {
+
+                const testCoffeeMachine = new CoffeeMachine();
+                testCoffeeMachine;
+
+                testCoffeeMachine.addWaterToMachine(1);
+                expect(testCoffeeMachine.waterLevel).toBe(1);
+            })
+
+            test("Adds right amount of water when passed an argument of a number up to and including the value in maxWaterLevel", () => {
+
+                const testCoffeeMachine1 = new CoffeeMachine();
+                const testCoffeeMachine2 = new CoffeeMachine();
+                const testCoffeeMachine3 = new CoffeeMachine();
+                testCoffeeMachine1;
+                testCoffeeMachine2;
+                testCoffeeMachine3;
+
+                testCoffeeMachine1.addWaterToMachine(2);
+                expect(testCoffeeMachine1.waterLevel).toBe(2);
+
+                testCoffeeMachine2.addWaterToMachine(3);
+                expect(testCoffeeMachine2.waterLevel).toBe(3);
+
+                testCoffeeMachine3.addWaterToMachine(5);
+                expect(testCoffeeMachine3.waterLevel).toBe(5);
+            })
+
+            test("Adds a value of water equal to the maxWaterLevel if passed an argument of a number above it", () => {
+
+                const testCoffeeMachine1 = new CoffeeMachine();
+                const testCoffeeMachine2 = new CoffeeMachine();
+                const testCoffeeMachine3 = new CoffeeMachine();
+                testCoffeeMachine1;
+                testCoffeeMachine2;
+                testCoffeeMachine3;
+
+                testCoffeeMachine1.addWaterToMachine(8);
+                expect(testCoffeeMachine1.waterLevel).toBe(5);
+
+                testCoffeeMachine2.addWaterToMachine(10);
+                expect(testCoffeeMachine2.waterLevel).toBe(5);
+
+                testCoffeeMachine3.addWaterToMachine(99);
+                expect(testCoffeeMachine3.waterLevel).toBe(5);
+            })
         })
 
+        describe("makeTheCoffee method" ,() => {
+            test("Checks there are coffee beans, if none returns string saying there are no coffee beans.", () => {
 
+                const testCoffeeMachine = new CoffeeMachine();
+                testCoffeeMachine;
+
+                expect(testCoffeeMachine.makeTheCoffee()).toBe("Please add coffee beans.");
+            })
+
+            test("After checking that there is coffee beans in the machine, check if there is water in the machine. If there isn't, return a string saying there is no water.", () => {
+
+                const testCoffeeMachine = new CoffeeMachine("Laughing Man");
+                testCoffeeMachine;
+
+                expect(testCoffeeMachine.makeTheCoffee()).toBe("Please add water.");
+            })
+
+            test("If there are coffee beans, water in the machine, and no argument is passed to the method, it makes an Americano coffee using the beans and 1 of the water.", () => {
+
+                const testCoffeeMachine = new CoffeeMachine("Laughing Man");
+                testCoffeeMachine;
+                testCoffeeMachine.addWaterToMachine();
+
+                expect(testCoffeeMachine.makeTheCoffee()).toBe("Here is your Americano coffee made using Laughing Man beans, enjoy! Be careful, it's hot!");
+            })
+
+            test("If there are coffee beans, water in the machine, and a type argument is passed to the method, it makes a coffee ofthat type using the beans and 1 of the water.", () => {
+
+                const testCoffeeMachine1 = new CoffeeMachine("Laughing Man");
+                testCoffeeMachine1;
+                testCoffeeMachine1.addWaterToMachine();
+
+                const testCoffeeMachine2 = new CoffeeMachine("Java Lava");
+                testCoffeeMachine2;
+                testCoffeeMachine2.addWaterToMachine();
+
+                const testCoffeeMachine3 = new CoffeeMachine("Black Cat Organic");
+                testCoffeeMachine3;
+                testCoffeeMachine3.addWaterToMachine();
+
+                expect(testCoffeeMachine1.makeTheCoffee("Espresso")).toBe("Here is your Espresso coffee made using Laughing Man beans, enjoy! Be careful, it's hot!");
+
+                expect(testCoffeeMachine2.makeTheCoffee("Red Eye")).toBe("Here is your Red Eye coffee made using Java Lava beans, enjoy! Be careful, it's hot!");
+
+                expect(testCoffeeMachine3.makeTheCoffee("Mocha")).toBe("Here is your Mocha coffee made using Black Cat Organic beans, enjoy! Be careful, it's hot!");
+            })
+        })
     })
 })
